@@ -70,28 +70,31 @@ public class Biglietteria {
 //	Nella classe Biglietteria, quando viene creato un nuovo biglietto,
 //	salvare i suoi dati in un file.
 //	Alla fine del programma, mostrare a video l’elenco dei biglietti creati.
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("Insert km to do ");
-		int kmToDo = sc.nextInt();
-		
-		System.out.print("Insert your age ");
-		int userAge = sc.nextInt();
-		
-		
-		try {
+		while(true) {
 			
-			Biglietto t = new Biglietto(kmToDo, userAge);			
-		} catch (Exception e) {
-			
-			System.err.println(e.getMessage());
-			
-		} finally {
-			
-			Biglietto ticket = new Biglietto(kmToDo, userAge);
-			System.out.println(ticket);
+			try {
+				
+				System.out.print("Insert km to do ");
+				int kmToDo = sc.nextInt();
+				
+				System.out.print("Insert your age ");
+				int userAge = sc.nextInt();
+				
+				
+				Biglietto ticket = new Biglietto(kmToDo, userAge);
+				System.out.println(ticket);
+				
+				break;
+				
+			} catch (Exception e) {
+				
+				System.err.println(e.getMessage());
+				
+			}
 		}
 		
 	}

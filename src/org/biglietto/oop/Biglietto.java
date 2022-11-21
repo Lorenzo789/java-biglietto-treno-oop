@@ -1,6 +1,7 @@
 package org.biglietto.oop;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Biglietto {
 
@@ -9,33 +10,23 @@ public class Biglietto {
 	private static final BigDecimal PRICE_KM = new BigDecimal(0.21);
 	private static final BigDecimal DISCOUNT_OVER = new BigDecimal(40);
 	private static final BigDecimal DISCOUNT_UNDER = new BigDecimal(20);
+	private static final int NORMAL_DATE = 30;
+	private static final int FLEXIBLE_DATE = 90;
+	private LocalDate todayDate;
+	private boolean flexible;
 	
 	public Biglietto(int kmToDo, int userAge) throws Exception {
 		
-		isValidKm(kmToDo);
-		isValidAge(userAge);
+		setKmToDo(kmToDo);
+		setUserAge(userAge);
 	}
 	
-	public void isValidKm(int kmToDo) throws Exception {
-		
-		if(kmToDo <= 0) {
-			
-			throw new Exception("the kilometers can't be 0");
-			
-		}
-		
-		this.kmToDo = kmToDo;
+	private boolean isValidKm(int kmToDo) throws Exception {
+		return kmToDo > 0;
 	}
 	
-	public void isValidAge(int userAge) throws Exception {
-		
-		if(userAge <= 0) {
-			
-			throw new Exception("negative age is not pemetted");
-			
-		}
-		
-		this.userAge = userAge;
+	private boolean isValidAge(int userAge) {
+		return userAge <= 100 && userAge > 0;
 	}
 
 	public float calculatePrice() {
@@ -77,7 +68,12 @@ public class Biglietto {
 		return kmToDo;
 	}
 
-	public void setKmToDo(int kmToDo) {
+	public void setKmToDo(int kmToDo) throws Exception {
+		
+		if(!isValidKm(kmToDo)) {
+			
+			throw new Exception("the kilometers can't be 0");
+		}
 		this.kmToDo = kmToDo;
 	}
 
@@ -85,14 +81,19 @@ public class Biglietto {
 		return userAge;
 	}
 
-	public void setUserAge(int userAge) {
+	public void setUserAge(int userAge) throws Exception {
+		
+		if(!isValidAge(userAge)) {
+			
+			throw new Exception("negative age is not pemetted");
+		}
 		this.userAge = userAge;
 	}
 	
 	@Override
 	public String toString() {
 		return "km to do: " + getKmToDo() 
-		+ "\nUser ager: " + getUserAge() 
+		+ "\nUser age: " + getUserAge() 
 		+ "\nPrice: " + calculatePrice();
 		
 	}
