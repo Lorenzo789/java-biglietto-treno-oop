@@ -80,21 +80,19 @@ public class Biglietteria {
 		System.out.print("Insert your age ");
 		int userAge = sc.nextInt();
 		
-		Biglietto ticket = new Biglietto(kmToDo, userAge);
 		
-//		try {
-//			
-//			Biglietto ticket = new Biglietto(kmToDo, userAge);
-//			
-//		} catch (Exception e) {
-//				
-//			System.err.println(e.getMessage());
-//			
-//		} finally {
-//			
-//			System.out.println("all good");
-//		}
+		try {
+			
+			Biglietto t = new Biglietto(kmToDo, userAge);			
+		} catch (Exception e) {
+			
+			System.err.println(e.getMessage());
+			
+		} finally {
+			
+			Biglietto ticket = new Biglietto(kmToDo, userAge);
+			System.out.println(ticket);
+		}
 		
-		System.out.println(ticket);
 	}
 }

@@ -6,7 +6,7 @@ public class Biglietto {
 
 	private int kmToDo;
 	private int userAge;
-	private static final float PRICE_KM = .21f;
+	private static final BigDecimal PRICE_KM = new BigDecimal(0.21);
 	private static final BigDecimal DISCOUNT_OVER = new BigDecimal(40);
 	private static final BigDecimal DISCOUNT_UNDER = new BigDecimal(20);
 	
@@ -38,31 +38,41 @@ public class Biglietto {
 		this.userAge = userAge;
 	}
 
-	public void calculatePrice() {
-		
-		float price = kmToDo * PRICE_KM;
-		
+	public float calculatePrice() {
+		return calculateDiscount();
 	}
 	
 
-	public BigDecimal calculateDiscount() {
+	private float calculateDiscount() {
 		
-		float priceWithoutDiscount = kmToDo * PRICE_KM;
-		BigDecimal operator = new BigDecimal(100);
+		float price = getKmToDo() * getPriceKm().floatValue();
 		
 		if(userAge >= 65) {
 			
+			price -= price / 100 * getDiscountOver().floatValue();
+
+		} else if (userAge <= 18) {
 			
-//			priceWithoutDiscount -= priceWithoutDiscount / 100 * DISCOUNT_OVER;
+			price -= price / 100 * getDiscountUnder().floatValue();
 			
-			System.out.println(DISCOUNT_OVER.multiply(operator));
 		}
-		return DISCOUNT_OVER.multiply(operator);
-		
+		return price;
 	}
 	
 	
 	
+	public static BigDecimal getPriceKm() {
+		return PRICE_KM;
+	}
+
+	public static BigDecimal getDiscountOver() {
+		return DISCOUNT_OVER;
+	}
+
+	public static BigDecimal getDiscountUnder() {
+		return DISCOUNT_UNDER;
+	}
+
 	public int getKmToDo() {
 		return kmToDo;
 	}
@@ -83,7 +93,7 @@ public class Biglietto {
 	public String toString() {
 		return "km to do: " + getKmToDo() 
 		+ "\nUser ager: " + getUserAge() 
-		+ "\nFinal Price: " + calculateDiscount();
+		+ "\nPrice: " + calculatePrice();
 		
 	}
 	
