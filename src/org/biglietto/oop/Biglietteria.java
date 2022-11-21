@@ -84,8 +84,13 @@ public class Biglietteria {
 				System.out.print("Insert your age ");
 				int userAge = sc.nextInt();
 				
+				sc.nextLine();
 				
-				Biglietto ticket = new Biglietto(kmToDo, userAge);
+				System.out.print("date flexible? y/n ");
+				String flexible = sc.nextLine();
+				
+				
+				Biglietto ticket = new Biglietto(kmToDo, userAge, flexible);
 				System.out.println(ticket);
 				
 				break;

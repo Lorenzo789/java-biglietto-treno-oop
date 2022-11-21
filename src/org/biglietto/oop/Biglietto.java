@@ -15,10 +15,13 @@ public class Biglietto {
 	private LocalDate todayDate;
 	private boolean flexible;
 	
-	public Biglietto(int kmToDo, int userAge) throws Exception {
+	public Biglietto(int kmToDo, int userAge, String flexible) throws Exception {
 		
 		setKmToDo(kmToDo);
 		setUserAge(userAge);
+//		todayDate = LocalDate.now();
+		setTodayDate(LocalDate.now());
+		setFlexible(flexible);
 	}
 	
 	private boolean isValidKm(int kmToDo) throws Exception {
@@ -42,16 +45,58 @@ public class Biglietto {
 			
 			price -= price / 100 * getDiscountOver().floatValue();
 
-		} else if (userAge <= 18) {
+		}
+		if (userAge <= 18) {
 			
 			price -= price / 100 * getDiscountUnder().floatValue();
+			
+		}
+		if (flexible) {
+			
+			price += price * 0.1f;
 			
 		}
 		return price;
 	}
 	
+	public LocalDate getExpiringDate() {
+		if(flexible) {
+			
+			return this.todayDate.plusDays(FLEXIBLE_DATE);
+		}
+		return this.todayDate.plusDays(NORMAL_DATE);
+	}
 	
-	
+	public LocalDate getTodayDate() {
+		return todayDate;
+	}
+
+	public void setTodayDate(LocalDate todayDate) {
+		this.todayDate = todayDate;
+	}
+
+	public boolean isFlexible() {
+		return flexible;
+	}
+
+	public void setFlexible(String flexible) throws Exception {
+		if(flexible.equals("y")) {
+			this.flexible = true;
+		} else if (flexible.equals("n")) {
+			this.flexible = false;
+		} else {
+			throw new Exception("Please insert y for yes or n for no");
+		}
+	}
+
+	public static int getNormalDate() {
+		return NORMAL_DATE;
+	}
+
+	public static int getFlexibleDate() {
+		return FLEXIBLE_DATE;
+	}
+
 	public static BigDecimal getPriceKm() {
 		return PRICE_KM;
 	}
@@ -94,6 +139,8 @@ public class Biglietto {
 	public String toString() {
 		return "km to do: " + getKmToDo() 
 		+ "\nUser age: " + getUserAge() 
+		+ "\nFlexible expiring date: " + isFlexible()
+		+"\nExpiring Date: " + getExpiringDate()
 		+ "\nPrice: " + calculatePrice();
 		
 	}
