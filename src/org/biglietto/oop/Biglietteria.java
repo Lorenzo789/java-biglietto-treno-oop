@@ -1,5 +1,7 @@
 package org.biglietto.oop;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Biglietteria {
@@ -72,6 +74,7 @@ public class Biglietteria {
 //	Alla fine del programma, mostrare a video l’elenco dei biglietti creati.
 	public static void main(String[] args) {
 		
+		FileWriter myFile = null;
 		Scanner sc = new Scanner(System.in);
 		
 		while(true) {
@@ -93,14 +96,30 @@ public class Biglietteria {
 				Biglietto ticket = new Biglietto(kmToDo, userAge, flexible);
 				System.out.println(ticket);
 				
+				myFile = new FileWriter("./ticket.txt", true);
+				myFile.append(ticket.toString() + "\n------\n");
+				
 				break;
 				
 			} catch (Exception e) {
 				
 				System.err.println(e.getMessage());
 				
+			} finally {
+				try {
+					myFile.close();
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		
+//		Scanner render = new Scanner(myFile);
+//		
+//		while(render.hasNextLine()) {
+//			String data = render.nextLine();
+//			System.out.println(data);
+//		}
+//		myFile.close();
 	}
 }

@@ -1,0 +1,12 @@
+km to do: 200
+User age: 67
+Flexible expiring date: true
+Expiring Date: 2023-02-20
+Price: 27.720001
+------
+km to do: 200
+User age: 55
+Flexible expiring date: true
+Expiring Date: 2023-02-20
+Price: 46.2
+------
